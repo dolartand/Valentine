@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine?</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffe6e6;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .gif-container {
+            margin-bottom: 20px;
+            width: 320px;
+        }
+
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #fff;
+            color: #ff4d6d;
+            border: 2px solid #ff4d6d;
+        }
+    </style>
+</head>
+<body>
+
+<div class="gif-container" id="gifContainer">
+    <div class="tenor-gif-embed"
+         data-postid="2871482820979272488"
+         data-share-method="host"
+         data-aspect-ratio="1.28351"
+         data-width="100%">
+    </div>
+</div>
+
+<h1 id="question">Will you be my Valentine?</h1>
+
+<div class="buttons" id="buttons">
+    <button id="yesBtn">YES</button>
+    <button id="noBtn">NO</button>
+</div>
+
+<script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const gifContainer = document.getElementById('gifContainer');
+    const question = document.getElementById('question');
+    const buttons = document.getElementById('buttons');
+
+    let yesScale = 1;
+    let noScale = 1;
+
+    noBtn.addEventListener('click', () => {
+        yesScale += 0.3;
+        noScale -= 0.1;
+
+        yesBtn.style.transform = `scale(${yesScale})`;
+        noBtn.style.transform = `scale(${noScale})`;
+
+        const phrases = [
+            "No?", "Are you sure?", "Really sure?",
+            "Think again!", "Don't do this!",
+            "I'm gonna cry...", "Last chance!"
+        ];
+
+        noBtn.innerText = phrases[Math.floor(Math.random() * phrases.length)];
+    });
+
+    yesBtn.addEventListener('click', () => {
+
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        question.innerHTML = "Yay! I knew it! ❤️";
+        question.style.fontSize = "3rem";
+
+        buttons.style.display = "none";
+
+        gifContainer.innerHTML = `
+            <div class="tenor-gif-embed"
+                 data-postid="14855460725867107717"
+                 data-share-method="host"
+                 data-aspect-ratio="1"
+                 data-width="100%">
+            </div>
+        `;
+
+        const script = document.createElement("script");
+        script.src = "https://tenor.com/embed.js";
+        script.async = true;
+        document.body.appendChild(script);
+    });
+</script>
+
+</body>
+</html>
