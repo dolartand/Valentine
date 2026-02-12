@@ -6,7 +6,6 @@
     <title>Will you be my Valentine?</title>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
     <style>
@@ -63,6 +62,8 @@
 </head>
 <body>
 
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
 <div class="gif-container" id="gifContainer">
     <div class="tenor-gif-embed"
          data-postid="2871482820979272488"
@@ -85,6 +86,7 @@
     const gifContainer = document.getElementById('gifContainer');
     const question = document.getElementById('question');
     const buttons = document.getElementById('buttons');
+    const music = document.getElementById("bgMusic");
 
     let yesScale = 1;
     let noScale = 1;
@@ -107,6 +109,13 @@
 
     yesBtn.addEventListener('click', () => {
 
+        music.volume = 0.7;
+        music.loop = true;
+
+        music.play().catch(error => {
+            console.log("Автовоспроизведение заблокировано:", error);
+        });
+
         confetti({
             particleCount: 150,
             spread: 70,
@@ -115,7 +124,6 @@
 
         question.innerHTML = "Yay! I knew it! ❤️";
         question.style.fontSize = "3rem";
-
         buttons.style.display = "none";
 
         gifContainer.innerHTML = `
